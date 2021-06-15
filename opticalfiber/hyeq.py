@@ -133,7 +133,7 @@ def Ez_clad(r, p, phase, pol, l, a, u, w, A):
 # r > a
 def Hr_clad(r, p, phase, pol, l, omega, a, n_2, u, w, s_2, A):
     return (
-        -1j * A * omega * epsilon_0 * l_0 ** 2
+        -1j * A * omega * epsilon_0 * n_2 ** 2
         * ((a * jv(l, u)) / (w * kv(l, w)))
         * ((1 - s_2) / 2 * kv(l-1, w * r / a)
         - (1 + s_2) / 2 * kv(l+1, w * r / a))
@@ -143,7 +143,7 @@ def Hr_clad(r, p, phase, pol, l, omega, a, n_2, u, w, s_2, A):
 
 def Hp_clad(r, p, phase, pol, l, omega, a, n_2, u, w, s_2, A):
     return (
-        -1j * A * omega * epsilon_0 * l_0 ** 2
+        -1j * A * omega * epsilon_0 * n_2 ** 2
         * ((a * jv(l, u)) / (w * kv(l, w)))
         * ((1 - s_2) / 2 * kv(l-1, w * r / a)
         + (1 + s_2) / 2 * kv(l+1, w * r / a))
@@ -165,9 +165,9 @@ def calc_P_core(l, omega, a, n_1, beta, u, s, s_1, A):
     return (
         (np.pi / 4) * omega * epsilon_0 * n_1 ** 2 * beta * np.abs(A) ** 2 * (a / u) ** 2
         * ((1 - s) * (1 - s_1)
-        * integrate.quad(lambda r: jv(l-1, r) ** 2, 0, a)
+        * integrate.quad(lambda r: r * jv(l-1, r) ** 2, 0, a)
         + (1 + s) * (1 + s_1)
-        * integrate.quad(lambda r: jv(l+1, r) ** 2, 0, a))
+        * integrate.quad(lambda r: r * jv(l+1, r) ** 2, 0, a))
     )
 
 
@@ -176,9 +176,9 @@ def calc_P_clad(l, omega, a, n_2, beta, u, w, s, s_2, A):
         (np.pi / 4) * omega * epsilon_0 * n_2 ** 2 * beta * np.abs(A) ** 2
         * ((a * jv(l, u)) / (w * kv(l, w))) ** 2
         * ((1 - s) * (1 - s_2)
-        * integrate.quad(lambda r: kv(l-1, r) ** 2, a, np.inf)
+        * integrate.quad(lambda r: r * kv(l-1, r) ** 2, a, np.inf)
         + (1 + s) * (1 + s_2)
-        * integrate.quad(lambda r: kv(l+1, r) ** 2, a, np.inf))
+        * integrate.quad(lambda r: r * kv(l+1, r) ** 2, a, np.inf))
     )
 
 
