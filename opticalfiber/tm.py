@@ -12,7 +12,7 @@ class TM:
                  "_n_eff", "_V", "_u", "_w", "_A", "_P"]
 
 
-    def __init__(self, m, wavelength, radius, n_1, n_2, power=None,
+    def __init__(self, wavelength, radius, n_1, n_2, m=1, power=None,
                  direction=1):
         lam = wavelength
         a = radius
@@ -37,12 +37,6 @@ class TM:
         self._w = w
         self._A = A
         self._P = power
-
-
-    @classmethod
-    def lowest_order(cls, wavelength, radius, n_1, n_2, power=None,
-                     direction=1):
-        return cls(1, wavelength, radius, n_1, n_2, power, direction)
 
 
     # r < a
