@@ -13,7 +13,7 @@ class HE:
         ]
 
 
-    def __init__(self, l, m, wavelength, radius, n_1, n_2, power=None, direction=1):
+    def __init__(self, wavelength, radius, n_1, n_2, l=1, m=1, power=None, direction=1):
 
         lam = wavelength
         a = radius
@@ -43,13 +43,6 @@ class HE:
         self._s_2 = utl.calc_s_2(k, n_2, beta, s)
         self._A = A
         self._P = power
-
-
-    @classmethod
-    def lowest_order(cls, wavelength, radius, n_1, n_2, power=None, direction=1):
-        return cls(1, 1, wavelength, radius, n_1, n_2, power, direction)
-
-    fundamental = lowest_order
 
 
     # r < a
